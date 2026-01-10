@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Details.css">
+    <link
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+  rel="stylesheet"
+/>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100..800&display=swap');
+</style>
+</head>
+<body>
+
+  <!-- navbar -->
+<nav>
+    <img src="./images/logo.png" alt="">
+
+    <div class="profile">
+
+<img src="./images//profile.png" alt="">
+
+<div>
+    <div class="profile-name">
+Rajesh Chakraborty
+</div>
+<a href="Login.html">
+    <div class="logout">
+<span class="material-symbols-outlined">
+logout
+</span>
+Logout
+</div>
+</a>
+</div>
+
+
+    </div>
+</nav>
+
+<a href="./Home.html">
+  <div class="back">
+  <span class="material-symbols-outlined">
+chevron_left
+</span>Back
+</div>
+</a>
+
+<p>Advisor Details</p>
+
+  <div class="info">
+    
+      <!-- Advisor Info Card -->
+      <div  class="card">
+        <span class="badge">EMP005128</span>
+        <div id="details"></div>
+        <div class="call-box">
+         <img class="call-icon" src="./images/call-icon.png" alt="">
+          <div class="call-text">
+            <div>Call them now to complete the referrals</div>
+            <strong>+91 982365000</strong>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- referral -->
+
+      <div class="referral-card">
+        <img src="./images/icon2.png" alt="">
+<div>Total Referral Submitted</div>
+<strong id="referral"></strong>
+      </div>
+
+      <!-- submit -->
+<div class="submit-card">
+        <img src="./images/icon4.png" alt="">
+<div>Total Referral Completed</div>
+<strong id="submit"></strong>
+      </div>
+
+
+  </div>
+
+
+ <div class="contact-section">
+      <h2 class="section-title">Add Contact Info</h2>
+      <div class="tabs">
+        <button class="tab active">Earn unlimited income</button>
+        <button class="tab">Exploring the world</button>
+      </div>
+
+      <div class="filter-bar">
+        <div class="checkbox-group">
+          <input type="checkbox" id="complete" checked>
+          <label for="complete">Complete the referrals by filling out the mobile numbers</label>
+        </div>
+        <div class="select-wrapper">
+          <select>
+            <option>Both</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Card 1 -->
+        <div class="card contact-card">
+          <label>Dev Kumar</label>
+          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <span  class="error-msg">Mobile number is invalid.</span>
+        </div>
+        <!-- Contact Card 2 -->
+        <div class="card contact-card">
+          <label>Prabhu Rameshwarprasadam</label>
+          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <span  class="error-msg">Mobile number is invalid.</span>
+        </div>
+        <!-- Contact Card 3 -->
+        <div class="card contact-card">
+          <label>Karan Singh</label>
+          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <span class="error-msg">Mobile number is invalid.</span>
+        </div>
+        <!-- Contact Card 4 -->
+        <div class="card contact-card">
+          <label>Kriti</label>
+          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <span class="error-msg">Mobile number is invalid.</span>
+        </div>
+        <!-- Contact Card 5 -->
+        <div class="card contact-card">
+          <label>Muhammad Ali Khan</label>
+          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <span class="error-msg">Mobile number is invalid.</span>
+        </div>
+        <!-- Contact Card 6 (Error State) -->
+        <div class="card contact-card error">
+          <label>Himani Khatter</label>
+          <div class="input-wrapper">
+            <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+            <!-- <span class="error-icon">!</span> -->
+          </div>
+          <span class="error-msg">Mobile number is invalid.</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span class="footer-text">15 Contacts Updated Till Now</span>
+    <button id="update" class="btn-primary">Update Contact Info</button>
+  </footer>
+
+
+    <!--popout msg  -->
+<div id="popup" class="popups">
+  	<div  class="thank-you-pop">
+							<img src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png" alt="">
+							<h1>Thank You!</h1>
+							<p>Your contacts is saved</p>
+		
+							
+ 						</div>
+</div>
+ 
+
+</body>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const userId = parseInt(params.get("id"));
+
+const inputs = document.querySelectorAll(".numbers");
+const updateBtn = document.getElementById("update");
+const popup = document.getElementById("popup");
+
+// disable initially
+updateBtn.disabled = true;
+
+// API (unchanged)
+fetch("./User.json")
+  .then(res => res.json())
+  .then(data => {
+    const user = data.users.find(u => u.id === userId);
+    if (!user) return;
+
+    document.getElementById("details").innerHTML =
+      `<h3 class="advisor-name">${user.name}</h3>`;
+    document.getElementById("referral").innerText = user.Referral;
+    document.getElementById("submit").innerText = user.Completed;
+  });
+
+// VALIDATION
+function validateAllInputs() {
+  let allValid = true;
+
+  inputs.forEach(input => {
+    const errorMsg = input.closest(".contact-card").querySelector(".error-msg");
+
+    input.value = input.value.replace(/\D/g, "").slice(0, 10);
+    const len = input.value.length;
+
+    if (len > 0 && len < 10) {
+      errorMsg.style.display = "block";
+      input.classList.add("input-error");
+      allValid = false;
+    } else if (len === 0) {
+      errorMsg.style.display = "none";
+      input.classList.remove("input-error");
+      allValid = false;
+    } else {
+      errorMsg.style.display = "none";
+      input.classList.remove("input-error");
+    }
+  });
+
+  updateBtn.disabled = !allValid;
+}
+
+// attach listeners
+inputs.forEach(input => {
+  input.addEventListener("input", validateAllInputs);
+});
+
+// POPUP
+updateBtn.addEventListener("click", () => {
+  popup.style.display = "flex";
+  setTimeout(() => popup.style.display = "none", 2000);
+});
+
+</script>
+
+
+
+</html>

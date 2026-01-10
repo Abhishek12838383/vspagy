@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Login.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100..800&display=swap');
+</style>
+</head>
+<body>
+
+
+<!-- login enter number part -->
+    <section class="login-screen">
+
+<!-- left part -->
+<div class="login-left">
+
+<div>
+    <img class="logo" src="./images//logo.png" aria-placeholder="logo" >
+</div>
+
+<div class="headline">
+<strong>Advisor Referral Program</strong>
+<p>A program designed to empower you, your friends, and your family.</p>
+</div>
+
+<div>
+    <img class="brands" src="./images/brands.png" aria-placeholder="brands" >
+</div>
+
+<div>
+    <img class="people" src="./images/people.png" aria-placeholder="people" >
+</div>
+
+</div>
+
+
+<!-- right part -->
+<div class="login-right">
+
+<h3>Login</h3>
+<p>Welcome back mate!</p>
+
+
+<!-- input field -->
+<h2>Enter the OTP sent to +91 9999999999 or
+    <a href="Login.html">
+         <span>Change Number</span>
+    </a>
+</h2>
+
+<div class="d-flex justify-content-center gap-2 otp-wrapper">
+  <input type="text" class="form-control text-center otp-input" maxlength="1">
+  <input type="text" class="form-control text-center otp-input" maxlength="1">
+  <input type="text" class="form-control text-center otp-input" maxlength="1">
+  <input type="text" class="form-control text-center otp-input" maxlength="1">
+   <input type="text" class="form-control text-center otp-input" maxlength="1">
+    <input type="text" class="form-control text-center otp-input" maxlength="1">
+</div>
+
+
+
+<h2>OTP not received?  <span>Resend</span></h2>
+
+<a href="Home.html">
+    <button class="sendotp" disabled>Verify & Login</button>
+</a>
+
+
+<h4>All rights reserved 2025</h4>
+
+
+</div>
+
+
+    </section>
+    
+</body>
+
+
+<script>
+  
+const inputs = document.querySelectorAll(".otp-input");
+const verifyBtn = document.querySelector(".sendotp");
+
+verifyBtn.disabled = true;
+
+function checkOTP() {
+  const allFilled = [...inputs].every(input => input.value !== "");
+  verifyBtn.disabled = !allFilled;
+}
+
+inputs.forEach((input, index) => {
+  input.addEventListener("input", () => {
+    input.value = input.value.slice(0,10); // digits only
+
+    if (input.value && index < inputs.length - 1) {
+      inputs[index + 1].focus();
+    }
+
+    checkOTP();
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Backspace" && !input.value && index > 0) {
+      inputs[index - 1].focus();
+    }
+  });
+});
+
+// navigate only when valid
+verifyBtn.addEventListener("click", () => {
+  if (!verifyBtn.disabled) {
+    window.location.href = "Home.html";
+  }
+});
+</script>
+
+
+
+</html>

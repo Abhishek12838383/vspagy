@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="Home.css">
+<link
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+  rel="stylesheet"
+/>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Anek+Latin:wght@100..800&display=swap');
+</style>
+</head>
+<body>
+
+<section>
+
+    <!-- navbar -->
+<nav>
+    <img src="./images/logo.png" alt="">
+
+    <div class="profile">
+
+<img src="./images//profile.png" alt="">
+
+<div>
+    <div class="profile-name">
+Rajesh Chakraborty
+</div>
+<a href="Login.html">
+    <div class="logout">
+<span class="material-symbols-outlined">
+logout
+</span>
+Logout
+</div>
+</a>
+</div>
+
+
+    </div>
+</nav>
+
+
+<!-- user details -->
+
+<div class="user-details">
+
+    <h1>Advisor Summary Dashboard</h1>
+
+    <!-- boxes -->
+
+    <div class="boxes">
+<!-- box1 -->
+        <div class="box1">
+
+<p>Total Advisors</p>
+
+<div class="box1-bottom">
+    <div>50</div>
+    <img src="./images//icon1.png" alt="">
+</div>
+
+        </div>
+
+        <!-- box2 -->
+
+   <div class="box1">
+
+<p>Participating Advisors</p>
+
+<div class="box1-bottom">
+    <div>25</div>
+    <img src="./images//icon2.png" alt="">
+</div>
+
+        </div>
+
+        <!-- box3 -->
+ <div class="box1">
+
+<p>Total Referrals</p>
+
+<div class="box1-bottom">
+    <div>982</div>
+    <img src="./images//icon3.png" alt="">
+</div>
+
+        </div>
+
+
+        <!-- box4 -->
+
+         <div class="box1">
+
+<p>Contact Details Captured</p>
+
+<div class="box1-bottom">
+    <div>420</div>
+    <img src="./images//icon4.png" alt="">
+</div>
+
+        </div>
+
+    </div>
+
+     <!-- user list -->
+
+        <div class="users-list">
+
+            <h1>Advisor - Referral  Summary</h1>
+
+        <div class="lists">
+               <div class="desc">Descending 
+       <span class="material-symbols-outlined">
+keyboard_arrow_down
+</span>
+</div>
+
+<div class="search-wrapper">
+  <input id="search" type="text" placeholder="Search..." />
+ <span class="material-symbols-outlined search-icon">
+search
+</span>
+</div>
+        </div>
+
+
+
+        </div>
+
+<!-- product -->
+
+ <div class="cards" id="userCards"></div>
+
+
+
+ <!-- product end -->
+</div>
+
+</section>
+    
+</body>
+
+
+<script>
+ let usersData = [];
+
+fetch("./User.json")
+  .then(res => res.json())
+  .then(data => {
+    usersData = data.users;
+    renderCards(usersData);
+  });
+
+const container = document.getElementById("userCards");
+const searchInput = document.getElementById("search");
+
+function renderCards(users) {
+  container.innerHTML = "";
+
+  users.forEach(user => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.cursor = "pointer";
+
+    card.innerHTML = `
+     <div class="user-name">
+       <h3>${user.name}</h3>
+       <span class="status ${user.status === "Done" ? "done" : "pending"}">
+        ${user.status}
+      </span>
+      </div>
+      <div class="stats">
+        <span>Referral: <strong>${user.Referral}</strong></span>
+        <span>Completed: <strong>${user.Completed}</strong></span>
+      </div>
+
+      <img src="./images/arow.png" alt="arrow"/>
+     
+    `;
+
+    card.onclick = () => {
+      window.location.href = `details.html?id=${user.id}`;
+    };
+
+    container.appendChild(card);
+  });
+}
+
+// 🔍 SEARCH FILTER
+searchInput.addEventListener("input", () => {
+  const value = searchInput.value.toLowerCase();
+
+  const filtered = usersData.filter(user =>
+    user.name.toLowerCase().includes(value)
+  );
+
+  renderCards(filtered);
+});
+
+
+
+
+
+
+</script>
+</html>
