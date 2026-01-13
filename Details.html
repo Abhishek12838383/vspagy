@@ -202,7 +202,7 @@ function validateAllInputs() {
   inputs.forEach(input => {
     const errorMsg = input.closest(".contact-card").querySelector(".error-msg");
 
-    input.value = input.value.replace.slice(0, 10);
+    input.value = input.value.slice(0, 10);
     const len = input.value.length;
 
     if (len > 0 && len < 10) {
