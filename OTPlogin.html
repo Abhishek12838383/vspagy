@@ -89,9 +89,17 @@ const verifyBtn = document.querySelector(".sendotp");
 verifyBtn.disabled = true;
 
 function checkOTP() {
-  const allFilled = [...inputs].every(input => input.value !== "");
+  let allFilled = true;
+
+  inputs.forEach(input => {
+    if (input.value === "") {
+      allFilled = false;
+    }
+  });
+
   verifyBtn.disabled = !allFilled;
 }
+
 
 inputs.forEach((input, index) => {
   input.addEventListener("input", () => {
