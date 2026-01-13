@@ -110,38 +110,38 @@ chevron_left
         <!-- Contact Card 1 -->
         <div class="card contact-card">
           <label>Dev Kumar</label>
-          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <input class="numbers" type="number" inputmode="numeric" placeholder="Add Mobile Number">
           <span  class="error-msg">Mobile number is invalid.</span>
         </div>
         <!-- Contact Card 2 -->
         <div class="card contact-card">
           <label>Prabhu Rameshwarprasadam</label>
-          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <input class="numbers" type="number" inputmode="numeric" placeholder="Add Mobile Number">
           <span  class="error-msg">Mobile number is invalid.</span>
         </div>
         <!-- Contact Card 3 -->
         <div class="card contact-card">
           <label>Karan Singh</label>
-          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <input class="numbers" type="number" inputmode="numeric" placeholder="Add Mobile Number">
           <span class="error-msg">Mobile number is invalid.</span>
         </div>
         <!-- Contact Card 4 -->
         <div class="card contact-card">
           <label>Kriti</label>
-          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <input class="numbers" type="number" inputmode="numeric" placeholder="Add Mobile Number">
           <span class="error-msg">Mobile number is invalid.</span>
         </div>
         <!-- Contact Card 5 -->
         <div class="card contact-card">
           <label>Muhammad Ali Khan</label>
-          <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+          <input class="numbers" type="number" inputmode="numeric" placeholder="Add Mobile Number">
           <span class="error-msg">Mobile number is invalid.</span>
         </div>
         <!-- Contact Card 6 (Error State) -->
         <div class="card contact-card error">
           <label>Himani Khatter</label>
           <div class="input-wrapper">
-            <input class="numbers" type="text" inputmode="numeric" placeholder="Add Mobile Number">
+            <input class="numbers" type="number" inputmode="numeric" placeholder="Add Mobile Number">
             <!-- <span class="error-icon">!</span> -->
           </div>
           <span class="error-msg">Mobile number is invalid.</span>
@@ -202,7 +202,7 @@ function validateAllInputs() {
   inputs.forEach(input => {
     const errorMsg = input.closest(".contact-card").querySelector(".error-msg");
 
-    input.value = input.value.replace(/\D/g, "").slice(0, 10);
+    input.value = input.value.replace.slice(0, 10);
     const len = input.value.length;
 
     if (len > 0 && len < 10) {
