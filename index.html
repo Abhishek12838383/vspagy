@@ -66,7 +66,7 @@
  <div class="error-message" id="errorMsg">⚠️ Number must be 10 digits</div>
 
 <a href="OTPlogin.html">
-    <button class="sendotp">Send OTP</button>
+    <button id="sendotp" class="sendotp">Send OTP</button>
 </a>
 
 <h4>All rights reserved 2025</h4>
@@ -93,10 +93,10 @@ const length = number.value.length;
 
 if(length == 0 || length == 10){
     errormsg.style.display = "none";
-    document.querySelector(".sendotp").disabled = false;
+    document.getElementById("sendotp").disabled = false;
 }
 else{
-document.querySelector(".sendotp").disabled = true;
+document.getElementById("sendotp").disabled = true;
 errormsg.style.display = "block";
 }
 });
